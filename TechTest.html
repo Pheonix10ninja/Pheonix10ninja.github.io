@@ -1,4 +1,29 @@
 <html>
+    
+    <scipt>
+        var r = 255;
+        var g = 255;
+        var b = 255;
+        </script>
+    function sliderChange(){
+            document.body.style.backgroundColor = ("rgb("+r+","+g+","+b+")")
+    }
+    
+    function sliderchangeR(val){
+        r = val;
+    document.getElementById("rValue").innerHTMl = r;
+    sliderChange();
+    }
+     function sliderchangeg(val){
+        g = val;
+    document.getElementById("gValue").innerHTMl = g;
+    sliderChange();
+    }
+     function sliderchangeb(val){
+        b = val;
+    document.getElementById("bValue").innerHTMl = b;
+    sliderChange();
+    }
 
 <body>
 <a href = "index.html">Home</a> <br>
