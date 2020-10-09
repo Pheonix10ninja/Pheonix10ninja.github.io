@@ -11,5 +11,47 @@ Welcome To tech-savvies Official Website
 
   
   	<button onclick="window.location.href='https://sites.google.com/view/tech-savvies/home'">tech-savvies home page!</button>
+  <canvas id= "game"></canvas>
+<script>
+var Key = 
+{_pressed: {},
+LEFT:37,
+UP:38,
+RIGHT:39,
+DOWN:40
+isDown: function(keycode) {return this._pressed[keyCode];},
+
+onKeydown: function(event) {this._pressed[event.KeyCode]= true;},
+
+onKeyup: function(event) {delete this._pressed[event.KeyCode]}
+
+};
+
+window.addEventListener('keyup', funtion(event) {key.onkeyup(event);},false);
+window.addEventListener('keydown', funtion(event) {key.onkeydown(event);},false);
+
+var x = 50;
+var y = 50;
+
+var canvas = document.getElementById('game');
+canvas.width = 300;
+canvas.height = 400;
+
+var ctx = canvas.gatContext('2D');
+
+var speed = 3;
+
+function draw(){
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(key.isDown(Key.UP)){
+    y-=speed;
+    }
+    else if(key.isDown(Key.RIGHT)){
+    x += speed;
+    }
+    
+
+
+</script>
 </body>
 </html>
