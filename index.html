@@ -11,47 +11,62 @@ Welcome To tech-savvies Official Website
 
   
   	<button onclick="window.location.href='https://sites.google.com/view/tech-savvies/home'">tech-savvies home page!</button>
-  <canvas id= "game"></canvas>
+<canvas id = "game"> </canvas>
 <script>
-var Key = 
-{_pressed: {},
+var Key = {
+_pressed: {},
 LEFT:37,
 UP:38,
 RIGHT:39,
-DOWN:40
-isDown: function(keycode) {return this._pressed[keyCode];},
+DOWN: 40,
 
-onKeydown: function(event) {this._pressed[event.KeyCode]= true;},
+isDown: function(keyCode) {return this._pressed[keyCode];},
+    
+onKeydown: function(event) {this._pressed[event.keyCode]= true;},
+    
+onKeyup: function(event) {delete this._pressed[event.keyCode]}
+//onKeyup: function(event) {}
 
-onKeyup: function(event) {delete this._pressed[event.KeyCode]}
+}; //this line ends the dictionary
 
-};
-
-window.addEventListener('keyup', funtion(event) {key.onkeyup(event);},false);
-window.addEventListener('keydown', funtion(event) {key.onkeydown(event);},false);
+window.addEventListener('keyup', function(event) {Key.onKeyup(event);},false);
+window.addEventListener('keydown', function(event) {Key.onKeydown(event);},false);
 
 var x = 50;
 var y = 50;
 
 var canvas = document.getElementById('game');
-canvas.width = 300;
+canvas.width = 400;
 canvas.height = 400;
 
-var ctx = canvas.gatContext('2D');
+var ctx = canvas.getContext('2d');
 
 var speed = 3;
 
 function draw(){
-	ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(key.isDown(Key.UP)){
-    y-=speed;
+ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(Key.isDown(Key.UP)){
+    y -= speed;  //shortcut for y = y - speed
     }
-    else if(key.isDown(Key.RIGHT)){
+    else if(Key.isDown(Key.DOWN)){
+    y += speed;
+    }
+    //same code but for x, left right
+    if(Key.isDown(Key.LEFT)){
+    x -= speed;
+    }
+    else if(Key.isDown(Key.RIGHT)){
     x += speed;
     }
-    
+    var character = new Path2D();
+    character.arc(x,y,25,0,2 * Math.PI);
 
+ctx.fillStyle = "#2c2599";
+    ctx.fill(character);
+    }
+    setInterval(draw,10);
 
 </script>
+
 </body>
 </html>
