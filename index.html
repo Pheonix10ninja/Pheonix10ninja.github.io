@@ -65,6 +65,19 @@ ctx.fillStyle = "#2c2599";
     ctx.fill(character);
     }
     setInterval(draw,10);
+  
+  var goalx = Math.random() * window.innerWidth
+  var goaly = Math.random() * window.innerheight 
+  var playerSize = 25
+  var goalSize = 15
+  
+  var speed = 3;
+  function draw() {
+    ctx.clearReact(0, 0, canvas.width, canvas.height);
+    
+    if (key.isDown(key.UP)){
+       y+=speed
+    
 
 </script>
 
