@@ -35,7 +35,7 @@ canvas{ border: 2px solid black;}
  
   var x = 50;
   var y = 50;
- 
+ var togglr = 1;
   var canvas = document.getElementById('game');
   canvas.width = 300; //window.innerWidth;
   canvas.height =300; //window.innerHeight;
@@ -72,9 +72,16 @@ canvas{ border: 2px solid black;}
       goalX = Math.random() * canvas.width;
       goalY = Math.random() * canvas.height;
     }
-    var character = new Path2D();
-    character.arc(x, y, playerSize, 0, 2 * Math.PI)
-   
+    var character = new Image();
+   toggle += 1;
+   toggle %= 100;
+    if(toggle > 50){
+    character.src = 'pixil-frame-0 (1)';
+    }else{
+      character.src = 'pixil-frame-1 (1)';}
+      character.addEventListener('load', function()  {
+        ctx.drawImage(character , x, y)
+      }, false);
     var goal = new Path2D();
     goal.arc(goalX, goalY, goalSize, 0, 2 * Math.PI)
    
