@@ -58,15 +58,23 @@ canvas{ border: 2px solid black;}
    
     if(Key.isDown(Key.UP)){
       y-=speed;
+      if (y<0){
+      y=canvas.height;}
     }
     if(Key.isDown(Key.DOWN)){
       y+=speed;
+       if (y>canvas.height){
+      y%canvas.height;}
     }
     if(Key.isDown(Key.LEFT)){
       x-=speed;
+       if (x<0){
+      x=canvas.width;}
     }
     if(Key.isDown(Key.RIGHT)){
       x+=speed;
+      if (x>canvas.width){
+      x%canvas.width;}
     }
    
     if ((Math.abs(x-goalX))**2 + (Math.abs(y-goalY))**2 < (playerSize+goalSize)**2){
