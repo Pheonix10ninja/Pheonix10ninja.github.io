@@ -7,6 +7,8 @@ canvas{ border: 2px solid black;}
 </style>
 </head>
 <body>
+  <img id="Frame 1"  src="pixil-frame-0 (1).png" alt="Uh-Oh! Your Image Didn't Load!" style="display:none">
+  <img id="Frame 2"  src="pixil-frame-1 (1).png" alt="Uh-Oh! Your Image Didn't Load!" style="display:none">
   <canvas id = "game"></canvas>
 <script>
   var Key = {
@@ -72,13 +74,14 @@ canvas{ border: 2px solid black;}
       goalX = Math.random() * canvas.width;
       goalY = Math.random() * canvas.height;
     }
-    var character = new Image();
    toggle += 1;
    toggle %= 100;
     if(toggle > 50){
-    character.src = 'pixil-frame-0 (1).png';
+    var character = document.getElementById("Frame 1");
     }else{
-      character.src = 'pixil-frame-1 (1).png';}
+     var character = document.getElementById("Frame 2");
+      
+    }
       character.addEventListener('load', function()  {
         ctx.drawImage(character , x, y)
       }, false);
