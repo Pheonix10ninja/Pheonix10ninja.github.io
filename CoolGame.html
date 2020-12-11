@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {background-color: Plum;}
+canvas{ border: 2px solid black;}
+</style>
+</head>
+<body>
+  <img id="link1"  src="link1 (2).png" alt="Link1" style="display:none">
+  <img id="link2"  src="link2 (2).png" alt="Link2" style="display:none">
+  <img id="grass1"  src="grass1.png" alt="Link2" style="display:none">
+  <img id="grass2"  src="grass2.png" alt="Link2" style="display:none">
+  <img id="grass3"  src="grass3.png" alt="Link2" style="display:none">
+  <img id="grass4"  src="grass4.png" alt="Link2" style="display:none">
+  <img id="rock1"  src="rock1.png" alt="Link2" style="display:none">
+  <canvas id = "game"></canvas>
+<script>
+  var Key = {  
+    _pressed: {},
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+ 
+    isDown: function(keyCode){
+      return this._pressed[keyCode];
+    },
+  
+    onKeydown: function(event) {
+      this._pressed[event.keyCode] = true;
+    },
+  
+    onKeyup: function(event) {
+      delete this._pressed[event.keyCode];
+    }
+  };
+  
+  window.addEventListener('keyup', function(event) {Key.onKeyup(event); }, false);
+  window.addEventListener('keydown', function(event) {Key.onKeydown(event); }, false);
+   
+  var OBSTACLES = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,1,0,0,0,0,0,0,0,0,0,0],
+    [0,1,0,1,0,0,1,0,0,0,0,0,0,0],
+    [0,1,1,1,0,1,0,1,0,0,0,0,0,0],
+    [0,1,0,1,0,1,1,1,0,0,0,0,0,0],
+    [0,1,1,1,0,1,0,1,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+    ];
+   
+  var canvas = document.getElementById('game');
+  canvas.width = 1400; //window.innerWidth;
+  canvas.height =900; //window.innerHeight;
+  var grid = 100;
+  var player_width = document.getElementById("link1").width;
+  var player_height = document.getElementById("link1").height;
+  //var player_width = document.getElementById("rock1").width;
+  //var player_height = document.getElementById("rock1").height;
+  console.log(player_width, player_height);
+   
+  function isCollidedOb(x,y,width,height,obarray){
+    upperleft = [[Math.floor(y/grid)],[Math.floor(x/grid)]];
+    lowerleft =  [[Math.floor((y+height)/grid)],[Math.floor((x)/grid)]];
+    upperright = [[Math.floor((y)/grid)],[Math.floor((x+width)/grid)]];
+    lowerright = [[Math.floor((y+height)/grid)],[Math.floor((x+width)/grid)]];
+    console.log(upperleft[0],lowerleft,upperright[0],lowerright);
+    if(obarray[upperleft[0]][upperleft[1]] || obarray[lowerleft[0]][lowerleft[1]] || obarray[upperright[0]][upperright[1]] || obarray[lowerright[0]][lowerright[1]]){
+      return true;
+    }
+    return false;
+  }
+   
+   function drawObs(obarray,grid){
+      for (let i = 0; i < obarray.length; i++) {
+          for (let j = 0; j <  obarray[i].length; j++) {
+              if (obarray[i][j]){
+                ctx.drawImage(rock1,j*grid,i*grid);
+              }
+          }
+      }
+   }
+   
+  var x = 50;
+  var y = 50;
+  var toggle = 1;
+  
+  var grass1 = document.getElementById("grass1");
+  var rock1 = document.getElementById("rock1");
+  var ctx = canvas.getContext('2d');
+  
+  var goalX = Math.random() * window.innerWidth;
+  var goalY = Math.random() * window.innerHeight;
+  var playerSize = 50;
+  var goalSize = 15;
+ 
+  var speed = 3;
+  function draw() {
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgb(24, 255, 0)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawObs(OBSTACLES,grid);
+    ctx.drawImage(grass1, 200, 200);
+     
+    //MOVE UP
+    if(Key.isDown(Key.UP)){
+      toggle += 1;
+      if(y < 0){
+        y= canvas.height-player_height;
+      }
+      if(!isCollidedOb(x,Math.abs(y-speed),player_width,player_height,OBSTACLES)){
+        y-=speed;
+      }
+    }
+     
+    //MOVE DOWN
+    if(Key.isDown(Key.DOWN)){
+      toggle += 1;
+      if(y > canvas.height){
+        y= y%canvas.height;
+      }
+      if(!isCollidedOb(x,y+speed,player_width,player_height,OBSTACLES)){
+        y+=speed;
+      } 
+    }
+     
+    //MOVE LEFT
+    if(Key.isDown(Key.LEFT)){
+      toggle += 1;
+      if(x < 0){
+        x = canvas.width-player_width;
+      }
+      if(!isCollidedOb(x-speed,y,player_width,player_height,OBSTACLES)){
+        x-=speed;
+      }
+    }
+     
+    //MOVE RIGHT
+    if(Key.isDown(Key.RIGHT)){
+      toggle += 1;
+      if(x > canvas.width){
+        x= x%canvas.width;
+      }
+      if(!isCollidedOb(x+speed,y,player_width,player_height,OBSTACLES)){
+        x+=speed;
+      }
+    }
+    
+    if ((Math.abs(x-goalX))**2 + (Math.abs(y-goalY))**2 < (playerSize+goalSize)**2){
+      //playerSize += 5;
+      goalX = Math.random() * canvas.width;
+      goalY = Math.random() * canvas.height;
+    }
+    //var character = new Path2D();
+    ////////////////////////////////////////////////////////////////////
+     //var character = new Image();
+    //toggle += 1;
+    toggle %= 100;
+    if(toggle > 50){
+    var character = document.getElementById("link1");
+      //character.src = document.getElementById("link1");
+    } else {
+    //character.src = document.getElementById("link2");}
+    var character = document.getElementById("link2");}
+    //character.addEventListener('load', function() {
+     // execute drawImage statements here
+    ctx.drawImage(character, x, y);
+     
+    var goal = new Path2D();
+    goal.arc(goalX, goalY, goalSize, 0, 2 * Math.PI);
+    
+    ctx.fillStyle = "#FF0000"
+    //ctx.fill(character);
+    
+    ctx.fill(goal)
+  }
+  setInterval(draw, 10);
+  
