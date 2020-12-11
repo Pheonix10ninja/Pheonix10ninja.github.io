@@ -10,7 +10,7 @@ canvas{ border: 2px solid black;}
   <img id="link1"  src="pixil-frame-0 (1).png" alt="Link1" style="display:none">
   <img id="link2"  src="pixil-frame-1 (1).png" alt="Link2" style="display:none">
   <img id="grass1"  src="grass1.png" alt="Link2" style="display:none">
-  <img id="grass2"  src="TreeGrove.png" alt="Link2" style="display:none">
+  <img id="tree2"  src="TreeGrove.png" alt="Link2" style="display:none">
   <img id="grass3"  src="grass3.png" alt="Link2" style="display:none">
   <img id="grass4"  src="grass4.png" alt="Link2" style="display:none">
   <img id="rock1"  src="rock1.png" alt="Link2" style="display:none">
@@ -39,7 +39,7 @@ canvas{ border: 2px solid black;}
   window.addEventListener('keyup', function(event) {Key.onKeyup(event); }, false);
   window.addEventListener('keydown', function(event) {Key.onKeydown(event); }, false);
    
-  var OBSTACLES = [
+  var OBSTACLES = [  
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,1,1,0,0,0,0,0,0,0,0,0,0],
     [0,1,0,1,0,0,1,0,0,0,0,0,0,0],
@@ -88,7 +88,7 @@ canvas{ border: 2px solid black;}
   var toggle = 1;
   
   var grass1 = document.getElementById("grass1");
-  var rock1 = document.getElementById("rock1");
+  var rock1 = document.getElementById("tree2");
   var ctx = canvas.getContext('2d');
   
   var goalX = Math.random() * window.innerWidth;
