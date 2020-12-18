@@ -90,7 +90,10 @@ canvas{ border: 2px solid black;}
      var character = document.getElementById("Frame 2");
       
     }
-        ctx.drawImage(character , x, y)
+        ctx.save();
+        ctx.scale(3, 1);
+        ctx.drawImage(character , x, y);
+        ctx.restore();
     var goal = new Path2D();
     goal.arc(goalX, goalY, goalSize, 0, 2 * Math.PI)
    
