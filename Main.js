@@ -53,7 +53,7 @@ function draw(){
        image(meteorImage,meteor.x,meteor.y,48,48);
        let touchingPlayer = overlappingRects(player.x, player.y, playerImage.width, playerImage.height, meteor.x, meteor.y, meteorImage.width, meteorImage.height);
        if (touchingPlayer){
-           player.hp -= .10;
+           player.hp -= .0;
        }
        noFill();
        if (touchingPlayer){
