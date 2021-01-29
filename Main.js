@@ -2,6 +2,8 @@ let stars;
 let playerImage;
 let meteorImage;
 let meteorChance = 0.02;
+let score = o;
+let GAMEOVER = 0;
 let player = {
     x:500,
     y:550,
@@ -25,8 +27,14 @@ function setup(){
     createCanvas(1000,700);
 }
 function draw(){
+    if(GAMEOVER == 0){
     background(0);
     image(stars,0,0,1000,700);
+
+    textSize(32);
+    fill(0,0,0,0);
+    text(score, 900, 40);
+
     image(playerImage, player.x, player.y);
     noFill();
     stroke(255);
@@ -52,8 +60,9 @@ function draw(){
    meteors.forEach(meteor => {
        image(meteorImage,meteor.x,meteor.y,48,48);
        let touchingPlayer = overlappingRects(player.x, player.y, playerImage.width, playerImage.height, meteor.x, meteor.y, meteorImage.width, meteorImage.height);
-       if (touchingPlayer){
+       if (touchingPlayer && player.hp>0){
            player.hp -= .10;
+
        }
        noFill();
        if (touchingPlayer){
@@ -71,6 +80,7 @@ function draw(){
    meteors.forEach((meteor,i) =>{
        if(meteor.y> height){
            meteors.splice(i,1);
+           score += 1;
        }
    })
    if(Math.random()<meteorChance){
@@ -82,6 +92,10 @@ function draw(){
    }
    if (Math.random()<0.005){
        meteorChance += 0.01;
+   }
+}
+   if (player.hp <= 0) {
+       GAMEOVER = 1;
    }
 }
 
@@ -100,12 +114,11 @@ function overlappingRects(x1, y1, w1, h1, x2, y2, w2, h2) {
     if (x1 + w1 >= x2 && x1 + w1 <= x2 + w2 && y1 >= y2 && y1 <= y2 + h2) {
     return true;
     }
-    /*if (x1 + w1 >= x2 && x1 + w1 <= x2 + w2 && y1 + h1 >= y2 && y1 + h1 <= y2 + h2) {
+    if (x1 + w1 >= x2 && x1 + w1 <= x2 + w2 && y1 + h1 >= y2 && y1 + h1 <= y2 + h2) {
     return true;
     }
     if (x1 >= x2 && x1 <= x2 + w2 && y1 + h1 >= y2 && y1 + h1 <= y2 + h2) {
     return true;
-    }*/
+    }
     return false;
 }
-//browser-sync start --server --files ["* .html", "* .css", "* .js"]
