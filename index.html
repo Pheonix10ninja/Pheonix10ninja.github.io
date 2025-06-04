@@ -1,85 +1,140 @@
-<html>
-<body>
-
-Welcome To tech-savvies Official Website
-<img src= "Tech.jpg" Alt= "picture of a motherboard">
-  <style>
-    body { 
-      background-image: "Tech.jpg");
-    }
-  </style>
-
-  
-  	<button onclick="window.location.href='www.tech-savvies.com'">tech-savvies home page!</button>
-<canvas id = "game"> </canvas>
-<script>
-var Key = {
-_pressed: {},
-LEFT:37,
-UP:38,
-RIGHT:39,
-DOWN: 40,
-
-isDown: function(keyCode) {return this._pressed[keyCode];},
-    
-onKeydown: function(event) {this._pressed[event.keyCode]= true;},
-    
-onKeyup: function(event) {delete this._pressed[event.keyCode]}
-//onKeyup: function(event) {}
-
-}; //this line ends the dictionary
-
-window.addEventListener('keyup', function(event) {Key.onKeyup(event);},false);
-window.addEventListener('keydown', function(event) {Key.onKeydown(event);},false);
-
-var x = 50;
-var y = 50;
-
-var canvas = document.getElementById('game');
-canvas.width = 400;
-canvas.height = 400;
-
-var ctx = canvas.getContext('2d');
-
-var speed = 3;
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(Key.isDown(Key.UP)){
-    y -= speed;  //shortcut for y = y - speed
-    }
-    else if(Key.isDown(Key.DOWN)){
-    y += speed;
-    }
-    //same code but for x, left right
-    if(Key.isDown(Key.LEFT)){
-    x -= speed;
-    }
-    else if(Key.isDown(Key.RIGHT)){
-    x += speed;
-    }
-    var character = new Path2D();
-    character.arc(x,y,25,0,2 * Math.PI);
-
-ctx.fillStyle = "#2c2599";
-    ctx.fill(character);
-    }
-    setInterval(draw,10);
-  
-  var goalx = Math.random() * window.innerWidth
-  var goaly = Math.random() * window.innerheight 
-  var playerSize = 25
-  var goalSize = 15
-  
-  var speed = 3;
-  function draw() {
-    ctx.clearReact(0, 0, canvas.width, canvas.height);
-    
-    if (key.isDown(key.UP)){
-       y+=speed
-    
-
-</script>
-
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index 67f91c8266f2f7260484ad9093e554472c65de39..fc4e4d363d5f26e6cb96b30f3d273dbc74050db5 100644
+--- a/index.html
++++ b/index.html
+@@ -1,85 +1,49 @@
+-<html>
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>Tech-Savvies Games</title>
++    <style>
++        body {
++            font-family: Arial, Helvetica, sans-serif;
++            background-color: #222;
++            color: #fff;
++            text-align: center;
++            margin: 0;
++            padding: 0;
++        }
++        ul {
++            list-style: none;
++            padding: 0;
++        }
++        li {
++            margin: 0.5em 0;
++        }
++        a {
++            color: #0af;
++            text-decoration: none;
++        }
++        a:hover {
++            text-decoration: underline;
++        }
++        img.logo {
++            max-width: 300px;
++            margin-top: 1em;
++        }
++    </style>
++</head>
+ <body>
+-
+-Welcome To tech-savvies Official Website
+-<img src= "Tech.jpg" Alt= "picture of a motherboard">
+-  <style>
+-    body { 
+-      background-image: "Tech.jpg");
+-    }
+-  </style>
+-
+-  
+-  	<button onclick="window.location.href='www.tech-savvies.com'">tech-savvies home page!</button>
+-<canvas id = "game"> </canvas>
+-<script>
+-var Key = {
+-_pressed: {},
+-LEFT:37,
+-UP:38,
+-RIGHT:39,
+-DOWN: 40,
+-
+-isDown: function(keyCode) {return this._pressed[keyCode];},
+-    
+-onKeydown: function(event) {this._pressed[event.keyCode]= true;},
+-    
+-onKeyup: function(event) {delete this._pressed[event.keyCode]}
+-//onKeyup: function(event) {}
+-
+-}; //this line ends the dictionary
+-
+-window.addEventListener('keyup', function(event) {Key.onKeyup(event);},false);
+-window.addEventListener('keydown', function(event) {Key.onKeydown(event);},false);
+-
+-var x = 50;
+-var y = 50;
+-
+-var canvas = document.getElementById('game');
+-canvas.width = 400;
+-canvas.height = 400;
+-
+-var ctx = canvas.getContext('2d');
+-
+-var speed = 3;
+-
+-function draw(){
+-ctx.clearRect(0,0,canvas.width,canvas.height);
+-    if(Key.isDown(Key.UP)){
+-    y -= speed;  //shortcut for y = y - speed
+-    }
+-    else if(Key.isDown(Key.DOWN)){
+-    y += speed;
+-    }
+-    //same code but for x, left right
+-    if(Key.isDown(Key.LEFT)){
+-    x -= speed;
+-    }
+-    else if(Key.isDown(Key.RIGHT)){
+-    x += speed;
+-    }
+-    var character = new Path2D();
+-    character.arc(x,y,25,0,2 * Math.PI);
+-
+-ctx.fillStyle = "#2c2599";
+-    ctx.fill(character);
+-    }
+-    setInterval(draw,10);
+-  
+-  var goalx = Math.random() * window.innerWidth
+-  var goaly = Math.random() * window.innerheight 
+-  var playerSize = 25
+-  var goalSize = 15
+-  
+-  var speed = 3;
+-  function draw() {
+-    ctx.clearReact(0, 0, canvas.width, canvas.height);
+-    
+-    if (key.isDown(key.UP)){
+-       y+=speed
+-    
+-
+-</script>
+-
++    <h1>Welcome to Tech-Savvies Official Website</h1>
++    <img class="logo" src="Tech.jpg" alt="picture of a motherboard">
++    <p>Select a page:</p>
++    <ul>
++        <li><a href="Tetris.html">Tetris</a></li>
++        <li><a href="Blobgame.html">Blob Game</a></li>
++        <li><a href="CoolGame.html">Cool Game</a></li>
++        <li><a href="breakout.html">Breakout</a></li>
++        <li><a href="TechTest.html">RGB Slider Test</a></li>
++        <li><a href="Index2.html">P5.js Game</a></li>
++    </ul>
+ </body>
+ </html>
+ 
+EOF
+)
